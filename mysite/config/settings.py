@@ -15,6 +15,19 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#ROOT_DIR
+
+#MEDIA
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+#STATIC_DIR
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -27,7 +40,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '.ap-northeast-2.compute.amazonaws.com',
+    '.amazonaws.com',
 ]
 
 
@@ -40,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'config',
 ]
 
 MIDDLEWARE = [
