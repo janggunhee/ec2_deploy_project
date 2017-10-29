@@ -1,6 +1,7 @@
 # Custom
 .idea/
-.config_secret
+.config_secret/
+.staitc_root/
 c.sh
 
 # Created by https://www.gitignore.io/api/linux,macos,python,django,pycharm

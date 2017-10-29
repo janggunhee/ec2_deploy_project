@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #ROOT_DIR
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
 #MEDIA
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -28,6 +29,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+# ec2_deploy_project/.static_root/
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
