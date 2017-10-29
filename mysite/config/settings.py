@@ -45,7 +45,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '.amazonaws.com',
+    '.ap-northeast-2.compute.amazonaws.com',
+    '.janggunhee.com',
 ]
 
 
@@ -98,8 +99,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'fastcampus-6th-database.ch2o6ovgtyyw.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '5432',
+        'NAME': 'deploy',
+        'USER': 'janggunhee',
+        'PASSWORD': 'wkdrmsgml',
     }
 }
 
