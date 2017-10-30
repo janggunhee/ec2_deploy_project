@@ -13,10 +13,19 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import json
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# custome user model
+
+AUTH_USER_MODEL = 'member.User'
 
 #ROOT_DIR
 ROOT_DIR = os.path.dirname(BASE_DIR)
+
+#CONFIG_SECRET_DIR
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 
 #MEDIA
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -32,13 +41,28 @@ STATICFILES_DIRS = [
 # ec2_deploy_project/.static_root/
 STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 
+# CONFIG_SECRET_DIR
+
+f = open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt')
+config_secret_common_str = f.read()
+f.close()
+config_secret_common= json.loads(config_secret_common_str)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jv(^pz*v_^2m3rt)u=++$@74j((l2i-d8r@s4nzc9&_%5vea-^'
+SECRET_KEY = 'sdfsd'
+
+# Facebook
+FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
+FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
+FACEBOOK_SCOPE =[
+    'user_friends',
+    'public_profile',
+    'email',
+]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,7 +84,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'config',
+    'member',
 ]
 
 MIDDLEWARE = [
