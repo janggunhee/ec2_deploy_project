@@ -27,26 +27,29 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 #CONFIG_SECRET_DIR
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+
 #MEDIA
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
 
 #STATIC_DIR
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
 # ec2_deploy_project/.static_root/
 STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 
 # CONFIG_SECRET_DIR
-
 f = open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt')
 config_secret_common_str = f.read()
 f.close()
-config_secret_common= json.loads(config_secret_common_str)
+config_secret_common = json.loads(config_secret_common_str)
 
 
 # Quick-start development settings - unsuitable for production
@@ -63,6 +66,22 @@ FACEBOOK_SCOPE =[
     'public_profile',
     'email',
 ]
+
+# AWS
+AWS_ACCESS_KEY_ID = config_secret_common['aws']['access_key_id']
+AWS_SECRET_ACCESS_KEY = config_secret_common['aws']['secret_access_key']
+AWS_STORAGE_BUCKET_NAME = config_secret_common['aws']['s3_bucket_name']
+AWS_S3_HOST = 's3.ap-northeast-2.amazonaws.com'
+S3_USE_SIGV4 = True
+
+# AWS Storage
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+
+# S3 FileStorage
+
+DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
+STATICFILES_STORAGE = 'config.storages.StaticStorage'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,7 +103,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'storages',
+
     'member',
+
 ]
 
 MIDDLEWARE = [
@@ -102,7 +124,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            TEMPLATES_DIR,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
